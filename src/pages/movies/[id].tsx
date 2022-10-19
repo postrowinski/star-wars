@@ -30,7 +30,7 @@ const Movie: NextPage = () => {
     <>
       {movie && (
         <div>
-          <h3>Film: {movie.title}</h3>
+          <h2>Film: {movie.title}</h2>
           <p>{movie.opening_crawl}</p>
           <ul>
             {movie.characters.map((character) => {

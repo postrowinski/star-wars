@@ -7,6 +7,7 @@ import { getMovies } from "../../redux/movies/actions";
 import { routes } from "../../routes/routes";
 import { useSetHeadTitle } from "../../hooks/useSetHeadTitle";
 import Loading from "../../components/Loading";
+import styles from "./movies.module.scss";
 
 const Movies: NextPage = () => {
   useSetHeadTitle("Star wars - movies");
@@ -23,12 +24,12 @@ const Movies: NextPage = () => {
 
   return (
     <div>
-      <h3>Filmy</h3>
-      <ul>
+      <h2 className={styles.film__h2}>Filmy</h2>
+      <ul className={styles.film__list}>
         {movies &&
           movies.map((movie) => {
             return (
-              <li key={movie.episode_id}>
+              <li className={styles.film__listItem} key={movie.episode_id}>
                 <Link href={`${routes.movies}/${getUrlID(movie.url)}`}>
                   {movie.title}
                 </Link>

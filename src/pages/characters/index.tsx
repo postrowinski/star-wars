@@ -25,7 +25,7 @@ const Characters: NextPage = () => {
 
   return (
     <div>
-      <h3>Postacie</h3>
+      <h2>Postacie</h2>
       <ul>
         {characters &&
           characters.map((character) => {

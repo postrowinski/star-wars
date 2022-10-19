@@ -21,7 +21,7 @@ export const moviesSlice = createSlice({
   initialState,
   reducers: {
     addReview(state, action: PayloadAction<Review>) {
-      if (!_.isNil(state.selectedMovie)) {
+      if (state.selectedMovie) {
         state.selectedMovie = {
           ...state.selectedMovie,
           reviews: [...state.selectedMovie.reviews, action.payload],

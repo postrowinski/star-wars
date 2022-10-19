@@ -6,19 +6,10 @@
 }
 
 .breadcrumbs li::after {
-  content: "-";
-  margin: 0 1rem;
+  content: "/";
+  margin: 0 4px;
 }
 
 .breadcrumbs li:last-child::after {
   display: none;
-}
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-}
-
-.error {
-  color: red;
 }

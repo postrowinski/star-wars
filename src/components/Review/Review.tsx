@@ -1,9 +1,10 @@
 import { useFormik } from "formik";
 import React from "react";
-import StarRating from "react-star-rating-component";
+import { Input, Row, Col, Button, Rate } from "antd";
 import { Review as IReview } from "../../types";
 import * as Yup from "yup";
 import Error from "../Error";
+import styles from "./Review.module.scss";
 
 interface Props {
   onSubmitReview: (values: IReview) => void;
@@ -36,21 +37,19 @@ const Review: React.FC<Props> = ({ onSubmitReview, reviews }) => {
 
   return (
     <>
-      <h3>Recenzje</h3>
-      <ul>
+      <h2>Recenzje</h2>
+      <ul className={styles.ul}>
         {reviews
           .map((review, index) => {
             return (
-              <li key={index}>
-                <div>{review.content}</div>
-                <div>{review.userName}</div>
-                <div>
-                  <StarRating
-                    name={`ratedReview-${index}`}
-                    value={review.rating}
-                    editing={false}
-                  />
-                </div>
+              <li className={styles.li} key={index}>
+                <div className={styles.content}>"{review.content}"</div>
+                <Row justify="space-between" align="middle">
+                  <Col>{review.userName}</Col>
+                  <Col>
+                    <Rate value={review.rating} disabled />
+                  </Col>
+                </Row>
               </li>
             );
           })
@@ -58,31 +57,45 @@ const Review: React.FC<Props> = ({ onSubmitReview, reviews }) => {
       </ul>
       <form onSubmit={formik.handleSubmit}>
         <label>
-          Recenzja
-          <textarea
+          Recenzja:
+          <Input.TextArea
             name={"content" as keyof IReview}
             value={formik.values.content}
             onChange={formik.handleChange}
+            placeholder={"Recenzja"}
+            rows={6}
           />
         </label>
         <Error error={formik.errors.content} />
-        <label>
-          Nazwa użytkownika
-          <input
-            type="text"
-            name={"userName" as keyof IReview}
-            value={formik.values.userName}
-            onChange={formik.handleChange}
-          />
-        </label>
-        <Error error={formik.errors.userName} />
-        <StarRating
-          name={"rating" as keyof IReview}
-          starCount={5}
-          value={formik.values.rating}
-          onStarClick={(value: number) => formik.setFieldValue("rating", value)}
-        />
-        <button type="submit">Wyślij rezenzję</button>
+        <Row style={{ marginBottom: 30 }} gutter={32} align="middle">
+          <Col span={8}>
+            <label>
+              Nazwa użytkownika:
+              <Input
+                type="text"
+                name={"userName" as keyof IReview}
+                value={formik.values.userName}
+                onChange={formik.handleChange}
+                placeholder={"Nazwa użytkownika"}
+              />
+            </label>
+            <Error error={formik.errors.userName} />
+          </Col>
+          <Col span={8}>
+            <label>Rating:</label>
+            <div>
+              <Rate
+                value={formik.values.rating}
+                onChange={(value) => formik.setFieldValue("rating", value)}
+              />
+            </div>
+          </Col>
+          <Col span={8}>
+            <Button className="button" htmlType="submit" type="primary">
+              Wyślij rezenzję
+            </Button>
+          </Col>
+        </Row>
       </form>
     </>
   );

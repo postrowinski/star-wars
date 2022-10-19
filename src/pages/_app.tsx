@@ -1,13 +1,14 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Breadcrumbs from "../components/Breadcrumbs";
-import Link from "next/link";
 import { store } from "../redux/store";
 import { Provider } from "react-redux";
-import styles from "../styles/Layout.module.css";
 import { routes } from "../routes/routes";
 import Head from "../components/Head";
 import { useRouter } from "next/router";
+import { Button } from "antd";
+import "antd/dist/antd.css";
+import "../styles/globals.scss";
+import styles from "../styles/Layout.module.scss";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -19,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <div className={styles.container}>
         <Breadcrumbs />
         <Component {...pageProps} />
-        {path !== routes.home && <button onClick={router.back}>Pawrót</button>}
+        {path !== routes.home && <Button onClick={router.back}>Pawrót</Button>}
       </div>
     </Provider>
   );

@@ -1,18 +1,18 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useSetHeadTitle } from "../hooks/useSetHeadTitle";
-import styles from "../styles/Layout.module.css";
+import { routes } from "../routes/routes";
 
 const Home: NextPage = () => {
   useSetHeadTitle("Star wars");
   return (
-    <div className={styles.container}>
+    <div>
       <ul>
         <li>
-          <Link href="/movies">Filmy</Link>
+          <Link href={routes.movies}>Filmy</Link>
         </li>
         <li>
-          <Link href="/characters">Postacie</Link>
+          <Link href={routes.characters}>Postacie</Link>
         </li>
       </ul>
     </div>

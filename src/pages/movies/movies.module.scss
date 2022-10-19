@@ -1,0 +1,13 @@
+.film {
+  &__h2 {
+    font-style: italic;
+  }
+  &__list {
+    padding: 0;
+    list-style-type: none;
+  }
+  &__listItem {
+    padding: 10px 0;
+    margin: 10px 0;
+  }
+}

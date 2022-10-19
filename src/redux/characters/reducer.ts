@@ -20,7 +20,7 @@ export const charactersSlice = createSlice({
   initialState,
   reducers: {
     addReview(state, action: PayloadAction<Review>) {
-      if (!_.isNil(state.selectedCharacter)) {
+      if (state.selectedCharacter) {
         state.selectedCharacter = {
           ...state.selectedCharacter,
           reviews: [...state.selectedCharacter.reviews, action.payload],

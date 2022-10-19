@@ -32,7 +32,7 @@ const Character: NextPage = () => {
     <>
       {character && (
         <div>
-          <h3>Aktor: {character.name}</h3>
+          <h2>Aktor: {character.name}</h2>
           <p>Urodzony: {character.birth_year}</p>
           <p>Wzrost: {character.height}</p>
           <p>Waga: {character.mass}</p>
