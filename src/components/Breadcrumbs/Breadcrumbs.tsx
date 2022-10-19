@@ -1,24 +1,32 @@
 import React from "react";
 import Link from "next/link";
-import type { Breadcrumb } from "../../types";
 import layout from "../../styles/Layout.module.css";
+import { routes } from "../../routes/routes";
+import { useRouter } from "next/router";
 
 const Breadcrumbs: React.FC = () => {
-  /**
-   * TODO: dodaj listę breadcrumbów dla aktualnej strony
-   */
-  const items: Breadcrumb[] = [];
+  const router = useRouter();
+  const paths = router.asPath.split("/").filter((x) => x);
 
   return (
     <ul className={layout.breadcrumbs}>
       <li>
-        <Link href="/">Strona główna</Link>
+        <Link href={routes.home}>Strona główna</Link>
       </li>
-      {items.map(() => {
-        /**
-         * TODO: wyświetl linki do nawigacji po breadcrumbach
-         */
-        return <></>;
+      {paths.map((name, index) => {
+        const routeTo = `/${paths.slice(0, index + 1).join("/")}`;
+        const isLast = index === paths.length - 1;
+        return (
+          <li key={index}>
+            {isLast ? (
+              name
+            ) : (
+              <Link key={name} href={routeTo}>
+                {name}
+              </Link>
+            )}
+          </li>
+        );
       })}
     </ul>
   );

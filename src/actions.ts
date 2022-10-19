@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import type { Movie, Character } from "./types";
 
-/**
- * TODO: dodaj typy
- */
-async function fetchMethod <T>(input: RequestInfo | URL, init?: RequestInit): Promise<T> {
+// Zostawiam poprawiony plik z tym, że jest on nie używane ze względu na to że uzyłem w projekcie reduxa
+
+async function fetchMethod<T>(
+  input: RequestInfo | URL,
+  init?: RequestInit
+): Promise<T> {
   const res = await fetch(input);
   return await res.json();
 }
 
-// docs: https://swapi.dev/
 const endpoint = "https://swapi.dev/api";
 
 const regex = /(\d+)\/$/;
@@ -19,12 +20,10 @@ export const getUrlID = (link: string) => {
 };
 
 export const useMovies = () => {
+  // Tutaj można do tego pola dodaćjeszcze custom hooksa który będzie przyjmować generyczny typ i podawana będzie wartośc defaultowa
   const [response, setResponse] = useState<Movie[]>([]);
 
   useEffect(() => {
-    /**
-     * TODO: moze da się jakoś lepiej pobierać dane :)
-     */
     fetchMethod<{ results: Movie[] }>(`${endpoint}/films/`).then(
       ({ results }) => {
         setResponse(results);
@@ -37,10 +36,7 @@ export const useMovies = () => {
 
 export const useMovie = (id: string) => {
   const [response, setResponse] = useState<Movie>();
-  /**
-   * TODO: ${endpoint}/films/${id}
-   */
-   fetchMethod<{ results: Movie }>(`${endpoint}/films/${id}`).then(
+  fetchMethod<{ results: Movie }>(`${endpoint}/films/${id}`).then(
     ({ results }) => {
       setResponse(results);
     }
@@ -49,13 +45,21 @@ export const useMovie = (id: string) => {
 };
 
 export const useCharacters = () => {
-  /**
-   * TODO: ${endpoint}/people
-   */
+  const [response, setResponse] = useState<Character[]>([]);
+  fetchMethod<{ results: Character[] }>(`${endpoint}/people/`).then(
+    ({ results }) => {
+      setResponse(results);
+    }
+  );
+  return response;
 };
 
-export const useCharacter = () => {
-  /**
-   * TODO: ${endpoint}/people/${id}
-   */
+export const useCharacter = (id: string) => {
+  const [response, setResponse] = useState<Character>();
+  fetchMethod<{ results: Character }>(`${endpoint}/people/${id}`).then(
+    ({ results }) => {
+      setResponse(results);
+    }
+  );
+  return response;
 };

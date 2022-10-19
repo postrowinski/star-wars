@@ -3,18 +3,20 @@ import Link from "next/link";
 import { getUrlID } from "../../actions";
 import { useAppDispatch, useAppSelector } from "../../redux/store";
 import { useEffect } from "react";
-import { getMovies } from "../../redux/movies/actions";
+import { getCharacters } from "../../redux/characters/actions";
 import { routes } from "../../routes/routes";
 import { useSetHeadTitle } from "../../hooks/useSetHeadTitle";
 import Loading from "../../components/Loading";
 
-const Movies: NextPage = () => {
-  useSetHeadTitle("Star wars - movies");
+const Characters: NextPage = () => {
+  useSetHeadTitle("Star wars - characters");
   const dispatch = useAppDispatch();
-  const { movies, isLoading } = useAppSelector((state) => state.moviesData);
+  const { characters, isLoading } = useAppSelector(
+    (state) => state.charactersData
+  );
 
   useEffect(() => {
-    dispatch(getMovies());
+    dispatch(getCharacters());
   }, []);
 
   if (isLoading) {
@@ -23,14 +25,14 @@ const Movies: NextPage = () => {
 
   return (
     <div>
-      <h3>Filmy</h3>
+      <h3>Postacie</h3>
       <ul>
-        {movies &&
-          movies.map((movie) => {
+        {characters &&
+          characters.map((character) => {
             return (
-              <li key={movie.episode_id}>
-                <Link href={`${routes.movies}/${getUrlID(movie.url)}`}>
-                  {movie.title}
+              <li key={character.url}>
+                <Link href={`${routes.characters}/${getUrlID(character.url)}`}>
+                  {character.name}
                 </Link>
               </li>
             );
@@ -40,4 +42,4 @@ const Movies: NextPage = () => {
   );
 };
 
-export default Movies;
+export default Characters;
